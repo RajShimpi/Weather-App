@@ -20,13 +20,13 @@ const dateBuilder = (d) => {
     "December",
   ];
   let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    "Sun",
+    "Mon",
+    "Tues",
+    "Wednes",
+    "Thurs",
+    "Fri",
+    "Satur",
   ];
 
   let day = days[d.getDay()];
