@@ -22,11 +22,11 @@ const dateBuilder = (d) => {
   let days = [
     "Sun",
     "Mon",
-    "Tues",
-    "Wednes",
-    "Thurs",
+    "Tue",
+    "Wed",
+    "Thu",
     "Fri",
-    "Satur",
+    "Sat",
   ];
 
   let day = days[d.getDay()];
