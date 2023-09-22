@@ -61,13 +61,11 @@ class Weather extends React.Component {
   componentDidMount() {
     if (navigator.geolocation) {
       this.getPosition()
-        //If user allow location service then will fetch data & send it to get-weather function.
         .then((position) => {
           this.getWeather(position.coords.latitude, position.coords.longitude);
         })
         .catch((err) => {
-          //If user denied location service then standard location weather will le shown on basis of latitude & latitude.
-          this.getWeather(18.4906035,73.9354118);//this latitude & latitude is Hadapser Pune location.
+          this.getWeather(18.4906035, 73.9354118);//this latitude & longitude is Hadapser Pune location.
           alert(
             "You have disabled location service. Allow 'This APP' to access your location. Your current location will be used for calculating Real time weather."
           );
@@ -93,7 +91,7 @@ class Weather extends React.Component {
   };
   getWeather = async (lat, lon) => {
     const api_call = await fetch(
-      `${apiKeys.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`
+      `${apiKeys.base}weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKeys.key}`
     );
     const data = await api_call.json();
     this.setState({
