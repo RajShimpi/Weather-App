@@ -7,7 +7,7 @@ function Forcast(props) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [weather, setWeather] = useState({});
-
+    
   const search = (city) => {
     axios
       .get(
