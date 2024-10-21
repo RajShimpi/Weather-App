@@ -1,13 +1,14 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiKeys from "./apiKeys";
 import ReactAnimatedWeather from "react-animated-weather";
 
-function Forcast(props) {
+function Forecast(props) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [weather, setWeather] = useState({});
-    
+
+  // Function to fetch weather data
   const search = (city) => {
     axios
       .get(
@@ -18,30 +19,25 @@ function Forcast(props) {
       .then((response) => {
         setWeather(response.data);
         setQuery("");
+        setError(""); // Clear any previous error
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
-        setWeather("");
-        setQuery("");
+        setWeather({});
         setError({ message: "Not Found", query: query });
       });
   };
-  function checkTime(i) {
-    if (i < 10) {
-      i = "0" + i;
-    } 
-    return i;
-  }
-  console.log(checkTime);
+
+  // Function to run only when the component mounts, initially fetching the weather for "Pune"
+  useEffect(() => {
+    search("Pune");
+  }, []); // Empty array ensures it runs only once on mount
+
   const defaults = {
     color: "white",
     size: 112,
     animate: true,
   };
-
-  useEffect(() => {
-    search("Pune");
-  });
 
   return (
     <div className="forecast">
@@ -64,22 +60,22 @@ function Forcast(props) {
             value={query}
           />
           <div className="img-box">
-            {" "}
-            <img alt="img"
+            <img
+              alt="Search"
               src="https://images.avishkaar.cc/workflow/newhp/search-white.png"
-              onClick={search}
+              onClick={() => search(query)} // Call search with the query when clicked
             />
           </div>
         </div>
         <ul>
-          {typeof weather.main != "undefined" ? (
+          {typeof weather.main !== "undefined" ? (
             <div>
-              {" "}
               <li className="cityHead">
                 <p>
                   {weather.name}, {weather.sys.country}
                 </p>
-                <img alt="Img"
+                <img
+                  alt="Weather Icon"
                   className="temp"
                   src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
                 />
@@ -87,7 +83,7 @@ function Forcast(props) {
               <li>
                 Temperature{" "}
                 <span className="temp">
-                  {Math.round(weather.main.temp)}°c ({weather.weather[0].main})
+                  {Math.round(weather.main.temp)}°C ({weather.weather[0].main})
                 </span>
               </li>
               <li>
@@ -119,4 +115,5 @@ function Forcast(props) {
     </div>
   );
 }
-export default Forcast;
+
+export default Forecast;
